@@ -15,12 +15,14 @@ Session.setDefault('list_id', null);
 
 
 //
-// TODOS Template
+// TODOS TEMPLATE
 Template.todos.helpers({
     todos : function () {
         return Todos.find();
     }
 });
+
+
 
 
 //
@@ -35,6 +37,14 @@ Template.lists.selected = function () {
     return Session.equals("list_id", this._id) ? 'selected' : '';
 };
 
+Template.lists.events({
+    'mousedown .list' : function (evt) {
+        Router.setList(this._id);
+    },
+    'click .list' : function (evt) {
+        evt.preventDefault();
+    }
+});
 
 
 //
@@ -69,6 +79,9 @@ var TodosRouter = Backbone.Router.extend({
             Session.set("list_id", list_id);
             Session.set("tag_filter", null);
         }
+    },
+    setList : function (list_id) {
+        this.navigate(list_id,true);
     }
 });
 

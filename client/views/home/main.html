@@ -1,0 +1,68 @@
+<head>
+    <title>Todos</title>
+</head>
+
+<body>
+
+    <div id="top-tag-filter">
+        {{> tag_filter}}
+    </div>
+
+    <div id="main-pane">
+        {{> todos}}
+    </div>
+
+    <div id="side-pane">
+        {{> lists}}
+    </div>
+
+</body>
+
+<template name="todos">
+    <div id="items-view">
+        <div id="new-todo-box">
+            <input type="text" id="new-todo" placeholder="New Item" />
+        </div>
+        <ul id="item-list">
+            {{#each todos}}
+                {{> todoItem}}
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="todoItem">
+    <li class="todo {{todo_class}}">
+        <div class="display">
+            <input type="checkbox" class="check" name="markdone" checked={{checked}}>
+            <div class="todo-text">{{text}}</div>
+        </div>
+    </li>
+</template>
+
+<template name="lists">
+    <h3>Todo Lists</h3>
+    <div id="lists">
+        {{#each lists}}
+            <div class="list {{selected}}">
+                <div class="display">
+                    <a class="list-name" href="/{{_id}}">{{name}}</a>
+                </div>
+            </div>
+        {{/each}}
+        <div id="createList">
+            <input type="text" id="new-list" placeholder="New list" />
+        </div>
+    </div>
+</template>
+
+<template name="tag_filter">
+    <div id="tag-filter" class="tag-list">
+        <div class="label">Show:</div>
+        {{#each tags}}
+            <div class="tag">
+                {{tag_text}} <!-- TODO add count for each tag -->
+            </div>
+        {{/each}}
+    </div>
+</template>

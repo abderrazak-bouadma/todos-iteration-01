@@ -18,7 +18,11 @@ Session.setDefault('list_id', null);
 // TODOS TEMPLATE
 Template.todos.helpers({
     todos : function () {
-        return Todos.find();
+        var list_id = Session.get('list_id');
+        if (!list_id)
+            return [];
+        var sel = {list_id: list_id};
+        return Todos.find(sel, {sort: {timestamp: 1}});
     }
 });
 
